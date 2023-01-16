@@ -86,7 +86,7 @@ if check_password():
 		NumberofFloors = st.number_input('Number of floors', step=1)
 		st.write('The current number is ', NumberofFloors)
 
-		BuildingAge = st.number_input('Age of the building')
+		BuildingAge = st.number_input('Age of the building', step=1)
 		st.write('The current number is ', BuildingAge)
 
 		harvesine_distance = st.number_input('Distance from Seattle Center')
@@ -125,7 +125,7 @@ if check_password():
 
 
 		if st.button('Predict Consumption'):
-   			st.write('The building consumption is ', float(y_pred))
+   			st.write('The building consumption (tons per year) is :  ', float(y_pred))
 		else:
     			st.write('Hit the button')
 
