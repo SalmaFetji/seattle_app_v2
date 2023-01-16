@@ -14,6 +14,26 @@ MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data/rf_app
 
 model = pickle.load(open('data/rf_app_pickle.pickle', 'rb'))
 
+image = Image.open('logo.png')
+
+	colT1,colT2, colT3 = st.columns([1,8,1])
+	with colT2:
+    	st.image(image, width=700)
+
+
+	image = Image.open('logo2.png')
+
+	colT1,colT2, colT3 = st.columns([1,1,1])
+	with colT2:
+   	 st.image(image, width=100)
+
+
+
+	st.markdown("<h1 style='text-align: center; color: blue;'>CO2 Emissions Predictions</h1>", unsafe_allow_html=True)
+
+	# # welcome info
+	st.info(":high_brightness: Welcome here !  caracteristiques batiments")
+
 
 # --- USER AUTHENTICATION ---
 names = ["Peter Parker", "Rebecca Miller"]
@@ -37,25 +57,6 @@ if authentication_status == None:
 
 if authentication_status:
 
-	image = Image.open('logo.png')
-
-	colT1,colT2, colT3 = st.columns([1,8,1])
-	with colT2:
-    	st.image(image, width=700)
-
-
-	image = Image.open('logo2.png')
-
-	colT1,colT2, colT3 = st.columns([1,1,1])
-	with colT2:
-   	 st.image(image, width=100)
-
-
-
-	st.markdown("<h1 style='text-align: center; color: blue;'>CO2 Emissions Predictions</h1>", unsafe_allow_html=True)
-
-	# # welcome info
-	st.info(":high_brightness: Welcome here !  caracteristiques batiments")
 
 
 
