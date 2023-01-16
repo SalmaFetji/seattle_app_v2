@@ -83,7 +83,7 @@ if check_password():
     			('Low-Rise Multifamily', 'Mid-Rise Multifamily', 'Small- and Mid-Sized Office', 'Large Office', 'Warehouse', 'Mixed Use Property', 'Retail Store', 'Hotel', 'Worship Facility', 'Distribution' , 'Center', 'Hospital' ,  'University', 'Distribution Center'))
 
 
-		NumberofFloors = st.number_input('Number of floors')
+		NumberofFloors = st.number_input('Number of floors', step=1)
 		st.write('The current number is ', NumberofFloors)
 
 		BuildingAge = st.number_input('Age of the building')
