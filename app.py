@@ -6,13 +6,15 @@ import numpy as np
 import os
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+
 
 
 
 MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data/rf_app_pickle.pkl')
 
 model = pickle.load(open('data/rf_app_pickle.pickle', 'rb'))
+
+
 
 
 image = Image.open('logo.png')
@@ -36,82 +38,60 @@ st.markdown("<h1 style='text-align: center; color: blue;'>CO2 Emissions Predicti
 st.info(":high_brightness: Welcome here !  caracteristiques batiments")
 
 
-# --- USER AUTHENTICATION ---
-names = ["Peter Parker", "Rebecca Miller"]
-usernames = ["pparker", "rmiller"]
 
-# load hashed passwords
-file_path = Path(__file__).parent / "hashed_pw.pkl"
-with file_path.open("rb") as file:
-    hashed_passwords = pickle.load(file)
-
-authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-    "sales_dashboard", "abcdef", cookie_expiry_days=30)
-
-name, authentication_status, username = authenticator.login("Login", "main")
-
-if authentication_status == False:
-    st.error("Username/password is incorrect")
-
-if authentication_status == None:
-    st.warning("Please enter your username and password")
-
-if authentication_status:
+def main():
 
 
-	def main():
+	PrimaryPropertyType = st.selectbox(
+    		'What is your property Use ?',
+    		('Low-Rise Multifamily', 'Mixed Use Property', 'Senior Care Community', "University"))
 
 
-		PrimaryPropertyType = st.selectbox(
-    			'What is your property Use ?',
-    			('Low-Rise Multifamily', 'Mixed Use Property', 'Senior Care Community', "University"))
+	NumberofFloors = st.number_input('Number of floors')
+	st.write('The current number is ', NumberofFloors)
+
+	BuildingAge = st.number_input('Age of the building')
+	st.write('The current number is ', BuildingAge)
+
+	harvesine_distance = st.number_input('Distance from Seattle Center')
+	st.write('The current number is ', harvesine_distance)
 
 
-		NumberofFloors = st.number_input('Number of floors')
-		st.write('The current number is ', NumberofFloors)
+	# # welcome info
+	st.info(":high_brightness: Welcome here !  Hop,  you can predict the energy use by the building in Seattle and the GHG emissions by year")
 
-		BuildingAge = st.number_input('Age of the building')
-		st.write('The current number is ', BuildingAge)
+	NaturalGas = st.number_input('NaturalGas(kBtu)')
+	st.write('The current number is ', NaturalGas)
 
-		harvesine_distance = st.number_input('Distance from Seattle Center')
-		st.write('The current number is ', harvesine_distance)
+	SteamUse = st.number_input('SteamUse(kBtu)')
+	st.write('The current number is ', SteamUse)
 
-
-		# # welcome info
-		st.info(":high_brightness: Welcome here !  Hop,  you can predict the energy use by the building in Seattle and the GHG emissions by year")
-
-		NaturalGas = st.number_input('NaturalGas(kBtu)')
-		st.write('The current number is ', NaturalGas)
-
-		SteamUse = st.number_input('SteamUse(kBtu)')
-		st.write('The current number is ', SteamUse)
-
-		GHGEmissionsIntensity = st.number_input('GHGEmissionsIntensity')
-		st.write('The current number is ', GHGEmissionsIntensity)
+	GHGEmissionsIntensity = st.number_input('GHGEmissionsIntensity')
+	st.write('The current number is ', GHGEmissionsIntensity)
 
 
-		SourceEUI = st.number_input('SourceEUI(kBtu/sf)')
-		st.write('The current number is ', SourceEUI)
+	SourceEUI = st.number_input('SourceEUI(kBtu/sf)')
+	st.write('The current number is ', SourceEUI)
 
 
 
 
-		d = {'NaturalGas(kBtu)': [NaturalGas], 'SteamUse(kBtu)': [SteamUse],'GHGEmissionsIntensity': [GHGEmissionsIntensity],'SourceEUI(kBtu/sf)': [SourceEUI], 'PrimaryPropertyType': [PrimaryPropertyType], 'NumberofFloors': [NumberofFloors], 'harvesine_distance': [harvesine_distance], 'BuildingAge': [BuildingAge]}   
-		#d = {'NaturalGas(kBtu)': [100], 'SteamUse(kBtu)': [100],'GHGEmissionsIntensity': [100],'SourceEUI(kBtu/sf)': [100], 'PrimaryPropertyType': ["University"], 'NumberofFloors': [100], 'harvesine_distance': [100], 'BuildingAge': [100]}
-		X_test = pd.DataFrame(data=d)
+	d = {'NaturalGas(kBtu)': [NaturalGas], 'SteamUse(kBtu)': [SteamUse],'GHGEmissionsIntensity': [GHGEmissionsIntensity],'SourceEUI(kBtu/sf)': [SourceEUI], 'PrimaryPropertyType': [PrimaryPropertyType], 'NumberofFloors': [NumberofFloors], 'harvesine_distance': [harvesine_distance], 'BuildingAge': [BuildingAge]}   
+	#d = {'NaturalGas(kBtu)': [100], 'SteamUse(kBtu)': [100],'GHGEmissionsIntensity': [100],'SourceEUI(kBtu/sf)': [100], 'PrimaryPropertyType': ["University"], 'NumberofFloors': [100], 'harvesine_distance': [100], 'BuildingAge': [100]}
+	X_test = pd.DataFrame(data=d)
 
 
-		st.dataframe(X_test)
+	st.dataframe(X_test)
 
-		y_pred = model.predict(X_test)
-
-
+	y_pred = model.predict(X_test)
 
 
-		if st.button('Predict Consumption'):
-   			st.write('The building consumption is ', float(y_pred))
-		else:
-    			st.write('Hit the button')
 
-	if __name__ == '__main__':
-   	 main()
+
+	if st.button('Predict Consumption'):
+   		st.write('The building consumption is ', float(y_pred))
+	else:
+    		st.write('Hit the button')
+
+if __name__ == '__main__':
+    main()
