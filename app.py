@@ -12,7 +12,6 @@ from sklearn.pipeline import Pipeline
 
 
 
-
 def check_password():
     """Returns `True` if the user had a correct password."""
 
@@ -72,7 +71,7 @@ if check_password():
 	st.markdown("<h1 style='text-align: center; color: blue;'>CO2 Emissions Predictions</h1>", unsafe_allow_html=True)
 
 	# # welcome info
-	st.info(":high_brightness: Welcome here !  caracteristiques batiments")
+	st.info(":high_brightness: Welcome here !  Enter your building characteristics")
 
 
 
@@ -81,7 +80,7 @@ if check_password():
 
 		PrimaryPropertyType = st.selectbox(
     			'What is your property Use ?',
-    			('Low-Rise Multifamily', 'Mixed Use Property', 'Senior Care Community', "University"))
+    			('Low-Rise Multifamily', 'Mid-Rise Multifamily', 'Small- and Mid-Sized Office', 'Large Office', 'Warehouse', 'Mixed Use Property', 'Retail Store', 'Hotel', 'Worship Facility', 'Distribution' , 'Center', 'Hospital' ,  'University', 'Distribution Center'))
 
 
 		NumberofFloors = st.number_input('Number of floors')
@@ -95,7 +94,7 @@ if check_password():
 
 
 		# # welcome info
-		st.info(":high_brightness: Welcome here !  Hop,  you can predict the energy use by the building in Seattle and the GHG emissions by year")
+		st.info(":high_brightness: Welcome here !  Hop,  you can predict the GHG emissions of your building in Seattle for a year")
 
 		NaturalGas = st.number_input('NaturalGas(kBtu)')
 		st.write('The current number is ', NaturalGas)
