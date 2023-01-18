@@ -120,12 +120,17 @@ if check_password():
 		st.dataframe(X_test)
 
 		y_pred = model.predict(X_test)
+		pred = float(y_pred)
+		predround = round(pred)
+
 
 
 
 
 		if st.button('Predict Consumption'):
-   			st.write('The building consumption (tons per year) is :  ', float(y_pred))
+
+			st.metric(label="The building consumption (tons per year) is :", value = predround)
+   			#st.write('The building consumption (tons per year) is :  ', float(y_pred))
 		else:
     			st.write('Hit the button')
 
